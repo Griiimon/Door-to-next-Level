@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5xy621rgqgw5"]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_heun6"]
+[ext_resource type="PackedScene" uid="uid://dn1nv3luaxsbx" path="res://door.tscn" id="2_3soom"]
+
+[node name="Level 2" type="Node2D"]
+script = ExtResource("1_heun6")
+previous_level_path = "res://levels/level_1.tscn"
+
+[node name="Room" type="Node2D" parent="."]
+
+[node name="Door" parent="Room" instance=ExtResource("2_3soom")]
+position = Vector2(132, 466)
+portal_to_previous_level = true
+
+[node name="Spawn Position" type="Node2D" parent="."]
+position = Vector2(566, 464)
