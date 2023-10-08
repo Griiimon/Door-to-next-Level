@@ -1,10 +1,10 @@
 extends Area2D
 class_name Door
 
-# is this door a portal? to where?
-@export var portal_to_next_level:= false
-@export var portal_to_previous_level:= false
-
+# target level file path 
+@export var level_file_path: String
+# target level spawn position index
+@export var level_spawn_position_index: int
 
 
 func _on_body_entered(_body):

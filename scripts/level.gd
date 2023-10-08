@@ -1,12 +1,10 @@
 extends Node2D
 class_name Level
 
-# file path to next and previous level
-@export var next_level_path: String
-@export var previous_level_path: String
-
-
 @onready var PlayerScene= preload("res://player.tscn")
+
+@onready var spawn_positions = $"Spawn Positions"
+
 
 func _init():
 	# register this level as current_level as soon as it is
@@ -17,7 +15,12 @@ func _ready():
 	# when this level is ready we create and add the player 
 	var player= PlayerScene.instantiate()
 	# and move it to the given spawn position
-	player.position= $"Spawn Position".position
+	# by picking one of the children
+	# of the Node "Spawn Positions", via index
+	
+	var spawn_node: Node2D= spawn_positions.get_child(Global.player_spawn_position_index)
+	
+	player.position= spawn_node.position
 	add_child(player)
 
 
@@ -29,8 +32,4 @@ func door_opened(door: Door):
 	# so we can call get_parent().change_level()
 	# like this and it can't fail
 	
-	if door.portal_to_next_level:
-		get_parent().change_level(next_level_path)
-	elif door.portal_to_previous_level:
-		get_parent().change_level(previous_level_path)
-	
+	get_parent().change_level(door.level_file_path, door.level_spawn_position_index)
